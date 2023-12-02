@@ -1,10 +1,12 @@
 package CODE;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 public class KiemTra {
-	static Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
     public String KiemTraNhapChuoi() {
         String DauVao;
@@ -18,52 +20,47 @@ public class KiemTra {
             }
         }
     }
-    
- 
-    public String KiemTraNhapGia()//kiểm tra nhập số nguyên
+
+    public String KiemTraNhapSo()// kiểm tra nhập số nguyên
     {
-    	String DauVao;
-    	while (true) {
+        String DauVao;
+        while (true) {
             DauVao = scanner.nextLine();
-           
-            if (DauVao.matches("^\\d+(\\.\\d+)?$")&&!DauVao.contains(" ")&&Integer.parseInt(DauVao)>10000) 
-            {
+
+            if (DauVao.matches("^\\d+(\\.\\d+)?$") && !DauVao.contains(" ")) {
                 return DauVao;
-            } 
-            else {
-                System.out.println("Giá không hợp lệ!");
+            } else {
+                System.out.println("Số không hợp lệ!");
             }
             System.out.print("Mời nhập lại: ");
 
         }
-  
+
     }
-    
+
     public String KiemTraNhapMaKhoa() {
         String DauVao;
         while (true) {
             DauVao = scanner.nextLine();
             DauVao = DauVao.toUpperCase();
-            if (DauVao.matches("^[a-zA-Z0-9]{1,9}$")&&!DauVao.contains(" ")) 
-            {
+            if (DauVao.matches("^[a-zA-Z0-9]{1,9}$") && !DauVao.contains(" ")) {
                 return DauVao;
-            } 
-            else {
+            } else {
                 System.out.println("Định dạng mã sai, chỉ được phép nhập chữ cái và chữ số!");
             }
             System.out.print("Mời nhập lại: ");
 
         }
     }
+
     public String formatChuoi(String chuoi) {
-        
+
         String[] tu = chuoi.split("\\s+");
 
-       
         for (int i = 0; i < tu.length; i++) {
-          
+
             if (tu[i].length() > 0) {
-              
+
                 tu[i] = tu[i].substring(0, 1).toUpperCase() + tu[i].substring(1).toLowerCase();
             }
         }
@@ -72,8 +69,8 @@ public class KiemTra {
 
         return ketQua;
     }
-    public  String KiemTraNhapTen()
-    {
+
+    public String KiemTraNhapTen() {
         String DauVao;
         while (true) {
             DauVao = scanner.nextLine();
@@ -96,71 +93,83 @@ public class KiemTra {
 
         }
     }
- 
-        public boolean TiepTuc(boolean menu) 
-        {
-        	
+
+    public boolean TiepTuc(boolean menu) {
+
         System.out.println("Tiếp tục? y/n");
-            String DauVao;
-            String DinhDang = "[n|y]";
-            while (true) 
-            {
-                DauVao = scanner.nextLine();
-                DauVao = DauVao.toLowerCase();
-                if (DauVao.matches(DinhDang)) {
-              
-                	  if (DauVao.matches("y"))
-                      {
-                      	menu=true;
-                      }
-                      else 
-                      {
-                      	menu=false;
-                      }
-                
-                    return menu;
+        String DauVao;
+        String DinhDang = "[n|y]";
+        while (true) {
+            DauVao = scanner.nextLine();
+            DauVao = DauVao.toLowerCase();
+            if (DauVao.matches(DinhDang)) {
+
+                if (DauVao.matches("y")) {
+                    menu = true;
                 } else {
-                    System.out.print("Sai định dạng, mời nhập lại lựa chọn!");
+                    menu = false;
                 }
-             }
-        }
-        public  String formatPath(String path) {
-            // Remove double quotes
-            String formattedPath = path.replace("\"", "");
 
-            // Add an additional backslash
-            formattedPath = formattedPath.replaceAll("\\", "\\\\");
-
-            return formattedPath;
-        }
-
-        public static boolean isValidBirthday(String input) {
-            try {
-                parseBirthday(input); // Attempt to parse the input
-                return true; // If successful, it's a valid date
-            } catch (DateTimeParseException e) {
-                return false; // Invalid date format
+                return menu;
+            } else {
+                System.out.print("Sai định dạng, mời nhập lại lựa chọn!");
             }
         }
+    }
 
-        public static LocalDate parseBirthday(String input) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            return LocalDate.parse(input, formatter);
-        }
-        public String check_birthday(String input) {
-        	while(true)
-        		{
-        		System.out.println("Nhập ngày tháng năm sinh (DD-MM-YYYY): ");
+    public String formatPath(String path) {
+        // Remove double quotes
+        String formattedPath = path.replace("\"", "");
+
+        // Add an additional backslash
+        formattedPath = formattedPath.replaceAll("\\", "\\\\");
+
+        return formattedPath;
+    }
+
+    public String validateBirthday() {
+        String input;
+        while (true) {
             input = scanner.nextLine();
 
-            if (isValidBirthday(input)) {
-               return input;
-                
-            } else {
-                System.out.println("Không hợp lệ!");
-               
-            }}
-            
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate parsedDate = LocalDate.parse(input, formatter);
+
+                if (input.matches("\\d{2}-\\d{2}-\\d{4}") && parsedDate != null) {
+                    return input;
+                } else {
+                    System.out.println("Dinh dang ngay sinh sai, moi nhap lai");
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Dinh dang ngay sinh sai, moi nhap lai ");
+            }
         }
-      
+    }
+
+    public String validatePhoneNumber() {
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+
+            if (input.matches("\\d{10}")) {
+                return input;
+            } else {
+                System.out.println("Dinh dang so dien thoai khong dung!");
+            }
+        }
+    }
+
+    public String validateGender() {
+        String input;
+        while (true) {
+            input = scanner.nextLine().toLowerCase();
+
+            if (input.equals("nam") || input.equals("nu")) {
+                return (input.equals("nam")) ? "Name" : "Nu";
+            } else {
+                System.out.println("Dinh dang sai!. Nhap 'nam' hoac 'nu'");
+            }
+        }
+    }
 }
