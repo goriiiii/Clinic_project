@@ -8,6 +8,7 @@ public class DICHVU {
 	private String ten;
 	private int price;
 	KiemTra kiemtra = new KiemTra();
+	private static int slg;
 	static Scanner scanner = new Scanner(System.in);
 
 	public DICHVU(String id, String ten, int price) {
@@ -45,6 +46,14 @@ public class DICHVU {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public static int getSlg() {
+		return slg;
+	}
+
+	public static void decrementSlg() {
+		slg--;
 	}
 
 	public String toString() {

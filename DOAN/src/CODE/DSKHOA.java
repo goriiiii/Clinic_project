@@ -12,16 +12,17 @@ public class DSKHOA {
 	private int slg;
 	KiemTra kt = new KiemTra();
 
-	private static ArrayList<KHOA> khoaarr;
+	private ArrayList<KHOA> khoaarr;
 
 	public DSKHOA(int n, ArrayList<KHOA> khoaarr) {
 		this.setSlg(n);
-		DSKHOA.khoaarr = khoaarr;
+		this.khoaarr = khoaarr;
 	}
 
 	public DSKHOA() {
 		this.setSlg(0);
 		khoaarr = new ArrayList<KHOA>();
+
 	}
 
 	public int getSlg() {
@@ -32,12 +33,12 @@ public class DSKHOA {
 		this.slg = slg;
 	}
 
-	public static ArrayList<KHOA> getKhoaarr() {
+	public ArrayList<KHOA> getKhoaarr() {
 		return khoaarr;
 	}
 
 	public void setKhoaarr(ArrayList<KHOA> khoaarr) {
-		DSKHOA.khoaarr = khoaarr;
+		this.khoaarr = khoaarr;
 
 	}
 
@@ -52,22 +53,23 @@ public class DSKHOA {
 
 		for (int i = 0; i < slg; i++) {
 			KHOA k = new KHOA();
-			k.NhapKhoa();
 
 			boolean isDuplicate = true;
-			for (KHOA khoa : DSKHOA.khoaarr) {
-				isDuplicate = true;
-				while (isDuplicate == true) {
+			while (isDuplicate) {
+				k.NhapKhoa();
+				isDuplicate = false;
+
+				for (KHOA khoa : this.khoaarr) {
 					if (k.getId().equalsIgnoreCase(khoa.getId())) {
+
 						System.out.println("Không cho phép ID trùng lặp!");
 						isDuplicate = true;
-						k.NhapKhoa();
-					} else {
-						isDuplicate = false;
+						break;
+
 					}
 				}
 			}
-			DSKHOA.khoaarr.add(k);
+			this.khoaarr.add(k);
 
 		}
 	}
@@ -76,8 +78,8 @@ public class DSKHOA {
 		System.out.println("Danh sách các khoa: ");
 
 		System.out.printf("%-12s%-12s\n", "ID", "Khoa");
-		for (KHOA khoa : DSKHOA.khoaarr) {
-			System.out.printf("%-12s%-12s\n", khoa.id, khoa.ten);
+		for (KHOA khoa : this.khoaarr) {
+			System.out.printf("%-12s%-12s\n", khoa.getId(), khoa.getTen());
 		}
 	}
 
@@ -137,62 +139,44 @@ public class DSKHOA {
 	}
 
 	public void xoaKhoa() {
-
-		String c;
-		boolean menu = true;
-		while (menu == true) {
-			System.out.println("Lựa chọn loại tìm kiếm để xóa: 1.Theo ID  2.Theo ten  3. Xoa het   X.Thoat");
-			c = scanner.nextLine();
-			switch (c) {
-				case "1":
-
-					KHOA k = timkiemKhoatheoid();
-					if (k == null) {
-						System.out.println("Không tìm thấy để xóa!");
-						break;
-					} else
+		System.out.println("Nhap ID khoa can xoa");
+		KHOA k = timkiemKhoatheoid();
+		if (k == null) {
+			System.out.println("Không tìm thấy để xóa!");
+			return;
+		} else {
+			k.toString();
+			System.out.println("Xac nhan xoa? y|n");
+			String choice = scanner.nextLine();
+			choice.toLowerCase();
+			boolean menu = true;
+			while (menu == true) {
+				switch (choice) {
+					case "y":
 						khoaarr.remove(k);
-					System.out.println("Đã xóa!");
-
-					break;
-				case "2":
-
-					KHOA k1 = timkiemKhoatheoten();
-					if (k1 == null) {
-						System.out.println("Không tìm thấy để xóa!");
+						System.out.println("Da xoa");
+						KHOA.decrementSlg();
+						menu = false;
 						break;
-					} else
-						khoaarr.remove(k1);
-					System.out.println("Đã xóa!");
-
-					break;
-				case "3":
-					khoaarr.removeAll(khoaarr);
-					System.out.println("Đã xóa!");
-
-					break;
-				case "x":
-					return;
-				case "X":
-					return;
-
-				default:
-					System.out.println("Lua chon khong hop le, hay nhap lai!");
-					menu = true;
-					break;
+					case "n":
+						menu = false;
+						break;
+					default:
+						System.out.println("Lua chon khong hop le");
+						menu = true;
+						break;
+				}
 			}
-
-			menu = kt.TiepTuc(menu);
-
 		}
+
 	}
 
 	public ArrayList<String> findMatchingStrings(ArrayList<KHOA> khoaarr, String pattern) {
 		ArrayList<String> matchingStrings = new ArrayList<String>();
 
 		for (KHOA khoa : khoaarr) {
-			if (khoa.ten.toLowerCase().contains(pattern.toLowerCase())
-					|| khoa.id.toLowerCase().contains(pattern.toLowerCase())) {
+			if (khoa.getTen().toLowerCase().contains(pattern.toLowerCase())
+					|| khoa.getId().toLowerCase().contains(pattern.toLowerCase())) {
 				matchingStrings.add(khoa.toString());
 			}
 
@@ -202,94 +186,61 @@ public class DSKHOA {
 	}
 
 	public void suaKhoa() {
-		String c;
-		boolean menu = true;
-		while (menu == true) {
-			System.out.println("Lựa chọn loại tìm kiếm để sửa: 1.Theo ID  2.Theo tên  X.Thoát");
-			c = scanner.nextLine();
-			switch (c) {
-				case "1":
-					KHOA khoa = timkiemKhoatheoid();
-					if (khoa == null) {
 
-						return;
-					}
+		System.out.println("Nhap ID dich vu can sua");
+		KHOA k = timkiemKhoatheoid();
+		if (k == null) {
+			System.out.println("Khong tim thay");
+			return;
+		} else {
 
-					boolean menu1 = true;
-					while (menu1 == true) {
-						System.out.println("1.Sửa Khoa ID   2.Sửa Tên Khoa  3.Thoát");
-						String choice = scanner.nextLine();
+			boolean menu1 = true;
+			while (menu1 == true) {
+				System.out.println("1.Sửa khoa ID   2.Sửa Tên khoa  3.Thoát");
+				String choice = scanner.nextLine();
 
-						if (choice.matches("1")) {
-							System.out.println("Nhập ID mới: ");
-							khoa.id = kt.KiemTraNhapMaKhoa();
-							khoa.XuatKhoa();
-							System.out.println("Lựa chọn tiếp tục sửa thêm?");
-							menu1 = kt.TiepTuc(menu1);
-						} else if (choice.matches("2")) {
-							System.out.println("Nhập tên mới: ");
-							khoa.ten = kt.KiemTraNhapTen();
-							khoa.XuatKhoa();
-							System.out.println("Lựa chọn tiếp tục sửa thêm?.");
-							menu1 = kt.TiepTuc(menu1);
-						} else if (choice.matches("3")) {
-							menu1 = false;
-						} else {
-							System.out.println("Nhập không hợp lệ, vui lòng lựa chọn 1 hoặc"
-									+ " 2 hoặc 3 ");
-							menu1 = true;
-						}
-					}
-					break;
-				case "2":
-					KHOA khoa2 = timkiemKhoatheoten();
-					if (khoa2 == null) {
+				if (choice.matches("1")) {
+					System.out.println("Nhập ID mới: ");
 
-						return;
-					}
+					KHOA k1 = new KHOA();
+					k1.setTen(k.getTen());
+					k.setId(kt.KiemTraNhapMaKhoa());
 
-					boolean menu2 = true;
-					while (menu2 == true) {
-						System.out.println("1.Sửa Khoa ID   2.Sửa Tên Khoa  3.Thoát");
-						String choice = scanner.nextLine();
-
-						if (choice.matches("1")) {
-							System.out.println("Nhập ID mới: ");
-							khoa2.id = kt.KiemTraNhapMaKhoa();
-							khoa2.XuatKhoa();
-							System.out.println("Lựa chọn tiếp tục sửa.");
-							menu2 = kt.TiepTuc(menu2);
-						} else if (choice.matches("2")) {
-							System.out.println("Nhập tên mới: ");
-							khoa2.ten = kt.KiemTraNhapTen();
-							khoa2.XuatKhoa();
-							System.out.println("Lựa chọn tiếp tục sửa.");
-							menu2 = kt.TiepTuc(menu2);
-						} else if (choice.matches("3")) {
-							menu2 = false;
-
-						} else {
-							System.out.println("Nhập không hợp lệ, vui lòng lựa chọn 1 hoặc"
-									+ " 2 hoặc 3 ");
-							menu2 = true;
+					boolean isDuplicate = true;
+					for (KHOA khoa : this.khoaarr) {
+						isDuplicate = true;
+						while (isDuplicate == true) {
+							if (k1.getId().equalsIgnoreCase(khoa.getId())) {
+								System.out.println("Không cho phép ID trùng lặp!");
+								isDuplicate = true;
+								k1.setId(kt.KiemTraNhapMaKhoa());
+							} else {
+								isDuplicate = false;
+							}
 						}
 					}
 
-					break;
-				case "x":
-					menu = false;
-					break;
-				case "X":
-					menu = false;
-					break;
+					khoaarr.add(k1);
+					khoaarr.remove(k);
+					KHOA.decrementSlg();
+					System.out.println("Lựa chọn tiếp tục sửa thêm?");
+					menu1 = kt.TiepTuc(menu1);
+				} else if (choice.matches("2")) {
+					System.out.println("Nhập ten mới: ");
 
-				default:
-					System.out.println("Lựa chọn không hợp lệ hãy nhập lại!!");
-					menu = true;
-					break;
+					k.setTen(kt.KiemTraNhapTen());
+
+					System.out.println("Lựa chọn tiếp tục sửa thêm?");
+					menu1 = kt.TiepTuc(menu1);
+				} else if (choice.matches("3")) {
+					menu1 = false;
+				} else {
+					System.out.println("Nhập không hợp lệ, vui lòng lựa chọn 1 hoặc"
+							+ " 2 hoặc 3 ");
+					menu1 = true;
+				}
 			}
-			System.out.println("Tiếp tục sửa khoa?");
-			menu = kt.TiepTuc(menu);
+
 		}
 
 	}
@@ -329,8 +280,8 @@ public class DSKHOA {
 						String property2 = properties[1].trim();
 
 						KHOA khoaobj = new KHOA(property1, property2);
-						kt.formatChuoi(khoaobj.ten);
-						DSKHOA.khoaarr.add(khoaobj);
+						kt.formatChuoi(khoaobj.getTen());
+						khoaarr.add(khoaobj);
 						read.close();
 					} else {
 						System.out.println("Invalid format in the line: " + line);
@@ -381,21 +332,21 @@ public class DSKHOA {
 
 	public void vietFileauto(DSKHOA ds, String file) {
 
-		DSKHOA.khoaarr.add(new KHOA("TM", "Tim mạch"));
-		DSKHOA.khoaarr.add(new KHOA("NHI", "NHI"));
-		DSKHOA.khoaarr.add(new KHOA("MAT", "Mắt"));
-		DSKHOA.khoaarr.add(new KHOA("VLTL", "Vật lý trị liệu"));
-		DSKHOA.khoaarr.add(new KHOA("TMH", "Tai - mũi -họng"));
-		DSKHOA.khoaarr.add(new KHOA("CC", "Cấp cứu"));
-		DSKHOA.khoaarr.add(new KHOA("YHCT", "Y học cổ truyền"));
-		DSKHOA.khoaarr.add(new KHOA("XN", "Xét nghiệm"));
-		DSKHOA.khoaarr.add(new KHOA("TK", "Thần kinh"));
-		DSKHOA.khoaarr.add(new KHOA("DL", "Da liễu"));
+		khoaarr.add(new KHOA("TM", "Tim mạch"));
+		khoaarr.add(new KHOA("NHI", "NHI"));
+		khoaarr.add(new KHOA("MAT", "Mắt"));
+		khoaarr.add(new KHOA("VLTL", "Vật lý trị liệu"));
+		khoaarr.add(new KHOA("TMH", "Tai - mũi -họng"));
+		khoaarr.add(new KHOA("CC", "Cấp cứu"));
+		khoaarr.add(new KHOA("YHCT", "Y học cổ truyền"));
+		khoaarr.add(new KHOA("XN", "Xét nghiệm"));
+		khoaarr.add(new KHOA("TK", "Thần kinh"));
+		khoaarr.add(new KHOA("DL", "Da liễu"));
 
 		try (FileWriter fileWriter = new FileWriter(file, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-			for (KHOA khoa : DSKHOA.khoaarr) {
+			for (KHOA khoa : khoaarr) {
 				if (khoa != null) {
 					bufferedWriter.write(khoa.getId() +
 							" , " + khoa.getTen() + "\n");
@@ -407,9 +358,7 @@ public class DSKHOA {
 		}
 	}
 
-	public static void main(String argv[]) {
-
-		DSKHOA ds = new DSKHOA();
+	public void main(DSKHOA ds) {
 
 		String c;
 		boolean menu = true;

@@ -44,35 +44,31 @@ public class DSDICHVU {
 	}
 
 	public void nhapDSDichvu() {
-		boolean cont = true;
-		while (cont == true) {
 
-			System.out.println("Nhap vao so luong dich vu:");
-			slg = Integer.parseInt(kt.KiemTraNhapSo());
+		System.out.println("Nhập vào số lượng dich vu:");
+		slg = Integer.parseInt(kt.KiemTraNhapSo());
 
-			for (int i = 0; i < slg; i++) {
-				DICHVU k = new DICHVU();
-				k.NhapDichvu();
+		for (int i = 0; i < slg; i++) {
+			DICHVU dv = new DICHVU();
 
-				boolean isDuplicate = true;
-				for (DICHVU dv : dvarr) {
-					isDuplicate = true;
-					while (isDuplicate == true) {
-						if (k.getId().equalsIgnoreCase(dv.getId())) {
-							System.out.println("Khong cho phep ID trung lap!");
-							isDuplicate = true;
-							k.NhapDichvu();
-						} else {
-							isDuplicate = false;
-						}
+			boolean isDuplicate = true;
+			while (isDuplicate) {
+				dv.NhapDichvu();();
+				isDuplicate = false;
+
+				for (DICHVU dichvu : this.dvarr) {
+					if (dv.getId().equalsIgnoreCase(dichvu.getId())) {
+
+						System.out.println("Không cho phép ID trùng lặp!");
+						isDuplicate = true;
+						break;
+
 					}
 				}
-				dvarr.add(k);
-
 			}
-			cont = kt.TiepTuc(cont);
-		}
+			dvarr.add(dv);
 
+		}
 	}
 
 	public void xuatDSDichvu() {
@@ -139,49 +135,34 @@ public class DSDICHVU {
 	}
 
 	public void xoaDV() {
-
-		String c;
-		boolean menu = true;
-		while (menu == true) {
-			System.out.println("Lua chon tim kiem: 1.Theo ID  2.Theo ten  3.Xoa het  X.Thoat");
-			c = scanner.nextLine();
-			switch (c) {
-				case "1":
-					DICHVU dv = timkiemDichvutheoid();
-					if (dv == null) {
-						System.out.println("Khong tim thay de xoa!");
+		System.out.println("Nhap ID ban can xoa");
+		DICHVU DV = timkiemDichvutheoid();
+		if (DV == null) {
+			System.out.println("Không tìm thấy để xóa!");
+			return;
+		} else {
+			DV.toString();
+			System.out.println("Xac nhan xoa? y|n");
+			String choice = scanner.nextLine();
+			choice.toLowerCase();
+			boolean menu = true;
+			while (menu == true) {
+				switch (choice) {
+					case "y":
+						dvarr.remove(DV);
+						System.out.println("Da xoa");
+						DICHVU.decrementSlg();
+						menu = false;
 						break;
-					} else
-						dvarr.remove(dv);
-					System.out.println("Da xoa!");
-
-					break;
-				case "2":
-					DICHVU dv1 = timkiemDichvutheoten();
-					if (dv1 == null) {
-						System.out.println("Khong tim thay de xoa!");
+					case "n":
+						menu = false;
 						break;
-					} else
-						dvarr.remove(dv1);
-					System.out.println("Da xoa!");
-				case "3":
-					dvarr.removeAll(dvarr);
-					System.out.println("Da xoa");
-					break;
-
-				case "x":
-					return;
-				case "X":
-					return;
-
-				default:
-					System.out.println("Lua chon khong hop le, hay nhap lai!");
-					menu = true;
-					break;
+					default:
+						System.out.println("Lua chon khong hop le");
+						menu = true;
+						break;
+				}
 			}
-
-			menu = kt.TiepTuc(menu);
-
 		}
 	}
 
@@ -200,92 +181,57 @@ public class DSDICHVU {
 	}
 
 	public void suaDichvu() {
-		String c;
-		boolean menu = true;
-		while (menu == true) {
-			System.out.println("Lua chon loai tim kiem de sua: 1.Theo ID  2.Theo ten   X.Thoat");
-			c = scanner.nextLine();
-			switch (c) {
-				case "1":
-					DICHVU dv = timkiemDichvutheoid();
+		System.out.println("Nhap ID dich vu can sua");
+		DICHVU DV = timkiemDichvutheoid();
+		if (DV == null) {
+			System.out.println("Khong tim thay");
+			return;
+		} else {
 
-					if (dv == null) {
-						System.out.println("Khong tim thay de xoa!");
-						break;
-					} else {
-						boolean menu1 = true;
-						while (menu1 == true) {
-							System.out.println("1.Sua ID  2.Sua ten   X.Thoat");
-							String choice = scanner.nextLine();
+			boolean menu1 = true;
+			while (menu1 == true) {
+				System.out.println("1.Sửa Dich vu ID   2.Sửa Tên Dich vu  3.Thoát");
+				String choice = scanner.nextLine();
 
-							if (choice.matches("1")) {
-								System.out.println("Nhập ID moi: ");
-								dv.setId(kt.KiemTraNhapMaKhoa());
-								dv.XuatDichvu();
-								System.out.println("Tiep tuc sua thong tin?");
-								menu1 = kt.TiepTuc(menu1);
-							} else if (choice.matches("2")) {
-								System.out.println("Nhap ten moi: ");
-								dv.setTen(kt.KiemTraNhapTen());
-								dv.XuatDichvu();
-								System.out.println("Tiep tuc sua thong tin?");
-								menu1 = kt.TiepTuc(menu1);
-							} else if (choice.equalsIgnoreCase("x")) {
-								menu1 = false;
-							} else {
-								System.out.println("Lua chon khong hop le!");
-								menu1 = true;
-							}
-						}
-						break;
-					}
-				case "2":
-					DICHVU dv1 = timkiemDichvutheoten();
-					if (dv1 == null) {
-						System.out.println("Khong tim thay de xoa!");
-						break;
-					} else {
+				if (choice.matches("1")) {
+					System.out.println("Nhập ID mới: ");
 
-						boolean menu2 = true;
-						while (menu2 == true) {
-							System.out.println("1.Sua ID  2.Sua ten   X.Thoat");
-							String choice = scanner.nextLine();
+					DICHVU dv1 = new DICHVU();
+					dv1.setTen(DV.getTen());
+					dv1.setId(kt.KiemTraNhapMaKhoa());
 
-							if (choice.matches("1")) {
-								System.out.println("Nhap ID moi: ");
+					boolean isDuplicate = true;
+					for (DICHVU dv : this.dvarr) {
+						isDuplicate = true;
+						while (isDuplicate == true) {
+							if (dv1.getId().equalsIgnoreCase(dv.getId())) {
+								System.out.println("Không cho phép ID trùng lặp!");
+								isDuplicate = true;
 								dv1.setId(kt.KiemTraNhapMaKhoa());
-								dv1.XuatDichvu();
-								System.out.println("Tiep tuc sua thong tin?");
-								menu2 = kt.TiepTuc(menu2);
-							} else if (choice.matches("2")) {
-								System.out.println("Nhap ten moi: ");
-								dv1.setTen(kt.KiemTraNhapTen());
-								dv1.XuatDichvu();
-								System.out.println("Tiep tuc sua thong tin?");
-								menu2 = kt.TiepTuc(menu2);
-							} else if (choice.equalsIgnoreCase("x")) {
-								menu2 = false;
 							} else {
-								System.out.println("Lua chon khong hop le!");
-								menu2 = true;
+								isDuplicate = false;
 							}
 						}
-						break;
 					}
-				case "x":
-					menu = false;
-					break;
-				case "X":
-					menu = false;
-					break;
+					dvarr.add(dv1);
+					dvarr.remove(DV);
+					System.out.println("Lựa chọn tiếp tục sửa thêm?");
+					menu1 = kt.TiepTuc(menu1);
+				} else if (choice.matches("2")) {
+					System.out.println("Nhập ten mới: ");
 
-				default:
-					System.out.println("Lua chon khong hop le!!");
-					menu = true;
-					break;
+					DV.setTen(kt.KiemTraNhapTen());
+
+					System.out.println("Lựa chọn tiếp tục sửa thêm?");
+					menu1 = kt.TiepTuc(menu1);
+				} else if (choice.matches("3")) {
+					menu1 = false;
+				} else {
+					System.out.println("Nhập không hợp lệ, vui lòng lựa chọn 1 hoặc"
+							+ " 2 hoặc 3 ");
+					menu1 = true;
+				}
 			}
-			System.out.println("Tiep tuc tim kiem de sua?");
-			menu = kt.TiepTuc(menu);
 
 		}
 
@@ -398,6 +344,12 @@ public class DSDICHVU {
 	}
 
 	public void vietFileauto(DSDICHVU ds, String file) {
+		dvarr.add(new DICHVU("KB", "Khám bệnh", 100000));
+		dvarr.add(new DICHVU("SA", "Siêu âm", 100000));
+		dvarr.add(new DICHVU("XQ", "X Quang", 100000));
+		dvarr.add(new DICHVU("XN", "Xét nghiệm", 100000));
+		dvarr.add(new DICHVU("PHCN", "Phục hồi chức năng", 100000));
+		dvarr.add(new DICHVU("DT", "Điện tim", 100000));
 
 		try (FileWriter fileWriter = new FileWriter(file, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
@@ -415,9 +367,7 @@ public class DSDICHVU {
 		}
 	}
 
-	public static void main(String argv[]) {
-
-		DSDICHVU ds = new DSDICHVU();
+	public void main(DSDICHVU ds) {
 
 		String c;
 		boolean menu = true;

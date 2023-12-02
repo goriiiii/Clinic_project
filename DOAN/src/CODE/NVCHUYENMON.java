@@ -1,7 +1,7 @@
 package CODE;
 
 public class NVCHUYENMON extends NHANSU {
-    private String MA_KHOA; // KHOA's ID
+    private String MA_KHOA;
 
     public NVCHUYENMON(String name, String birthday, String phonenumber, String address, String gender,
             String employee_id, String identification_code, String MA_KHOA) {
@@ -27,25 +27,16 @@ public class NVCHUYENMON extends NHANSU {
         return super.toString() + ", MA KHOA: " + MA_KHOA;
     }
 
-    public void nhapThongTinNVChuyenMon() {
+    public void nhapBoPhan() {
+
         System.out.println("Nhap ma khoa: ");
-        while (true) {
-            this.MA_KHOA = kt.KiemTraNhapMaKhoa();
-            for (KHOA k : DSKHOA.getKhoaarr()) {
-                boolean exists = false;
-                if (k.getId().equalsIgnoreCase(this.MA_KHOA)) {
-                    exists = true;
-                    return;
-                }
-                if (exists == false) {
-                    System.out.println("Khoa khong ton tai, moi nhap lai!");
-                }
-            }
-        }
+        this.MA_KHOA = kt.KiemTraNhapMaKhoa();
+
     }
 
-    public static void main(String argv) {
+    public static void main(String argv[]) {
+
         NVCHUYENMON nv = new NVCHUYENMON();
-        nv.nhapThongTinNVChuyenMon();
+        nv.nhapBoPhan();
     }
 }
