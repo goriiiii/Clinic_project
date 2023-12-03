@@ -215,7 +215,7 @@ public class DSCHITIETPHIEUKHAM {
         System.out.printf("%-12s%-12s%-12s\n", "Ma Dich vu", "Ten Dich vu", "Phi");
 
         for (ChitietPhieuKham_Dichvu a : dichvuarr) {
-            System.out.printf("%-12s%-12s%-12s%-12s\n",
+            System.out.printf("%-12s%-12s%-12s\n",
 
                     a.getDichvu_id(),
                     a.getTendichvu(),
@@ -301,7 +301,7 @@ public class DSCHITIETPHIEUKHAM {
         String c;
         boolean menu = true;
         while (menu == true) {
-
+            System.out.println("CHI TIET PHIEU KHAM");
             System.out.println("1. Nhập chi tiet");
             System.out.println("2. Xuất cac chi tiet");
             System.out.println("3. Thêm chi tiet");

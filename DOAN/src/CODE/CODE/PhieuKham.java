@@ -7,14 +7,15 @@ public class PhieuKham {
 
     @Override
     public String toString() {
-        return "PhieuKham [IDPhieuKham=" + IDPhieuKham + ", IDBenhNhan=" + IDBenhNhan + ", IDBacSi=" + IDBacSi
-                + ", ngaythang=" + ngaythang + "]";
+        return "ID Phieu Kham: " + IDPhieuKham + ", ID Benh Nhan=" + IDBenhNhan + ", ID Bac Si=" + IDBacSi
+                + ", ngay: " + ngaythang + ", tinh trang: " + status;
     }
 
     protected String IDBenhNhan;
     protected String IDBacSi;
-    private DSCHITIETPHIEUKHAM ds;
+    private DSCHITIETPHIEUKHAM ds = new DSCHITIETPHIEUKHAM();
     protected String ngaythang;
+    protected String status = "Hope le";
     protected int slg;
     KiemTra kt = new KiemTra();
 
@@ -77,23 +78,8 @@ public class PhieuKham {
 
     }
 
-    public void taoPhieuKham(PhieuKham pk, DSPHIEUKHAM dspk) {
-
-        System.out.println("Nhap ma phieu kham: ");
-        IDPhieuKham = kt.KiemTraNhapMaKhoa();
-        System.out.println("Nhap ma benh nhan");
-        IDBenhNhan = kt.KiemTraNhapMaKhoa();
-        System.out.println("Nhap ma bac si: ");
-        IDBacSi = kt.KiemTraNhapMaKhoa();
-        System.out.println("Nhap ngay: ");
-        ngaythang = kt.validateBirthday();
-        System.out.println("Nhap cac chi tiet");
-        ds.nhapDSChiTiet();
-        ds.main(ds, pk);
-        if (!ds.getDichvuarr().isEmpty() && !ds.getDichvuarr().isEmpty()) {
-            dspk.getPhieukhamarr().add(pk);
-        }
-
+    public void HuyPhieu() {
+        status = "Da huy";
     }
 
     public void xuatPhieuKham() {

@@ -499,11 +499,60 @@ public class DSNHANSU {
         //
     }
 
-    public static void main(String argv[]) {
-        DSNHANSU ds = new DSNHANSU();
-        ds.nhapDSNhansu();
-        ds.xuatDSNhansu();
-        ds.suaNhanvien();
-    }
+    public void main(DSNHANSU ds) {
 
+        String c;
+        boolean menu = true;
+        while (menu == true) {
+            System.out.println("QUẢN LÍ DANH SACH NHAN SU");
+            System.out.println("1. Nhập danh sách");
+            System.out.println("2. Xuất danh sách");
+            System.out.println("3. Thêm nhan su");
+            System.out.println("4. Tìm kiếm theo ID");
+            System.out.println("5. Tìm kiếm theo tên");
+            System.out.println("6. Xóa benh nhan");
+            System.out.println("7. Sửa benh nhan");
+            System.out.println("8. Nhập thông tin từ file");
+            System.out.println("9. Xuất thông tin ra file");
+            System.out.println("10. Exit");
+            c = scanner.nextLine();
+            switch (c) {
+                case "1":
+                    ds.nhapDSNhansu();
+                    break;
+                case "2":
+                    ds.xuatDSNhansu();
+                    break;
+                case "3":
+                    ds.themNhansu();
+                    break;
+                case "4":
+                    ds.timkiemNVtheoID();
+                    break;
+                case "5":
+                    ds.timkiemNVtheoten();
+                    break;
+                case "6":
+                    ds.xoaNhanvien();
+                    break;
+                case "7":
+                    ds.suaNhanvien();
+                    break;
+                case "8":
+                    // ds.docFile(ds);
+                    break;
+                case "9":
+                    ds.vietFile();
+                    break;
+                case "10":
+                    menu = false;
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ! Hãy nhập lại");
+                    menu = true;
+                    break;
+            }
+            menu = kt.TiepTuc(menu);
+        }
+    }
 }
