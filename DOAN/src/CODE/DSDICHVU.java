@@ -53,7 +53,7 @@ public class DSDICHVU {
 
 			boolean isDuplicate = true;
 			while (isDuplicate) {
-				dv.NhapDichvu();();
+				dv.NhapDichvu();
 				isDuplicate = false;
 
 				for (DICHVU dichvu : this.dvarr) {
@@ -420,6 +420,7 @@ public class DSDICHVU {
 					menu = true;
 					break;
 			}
+			menu = kt.TiepTuc(menu);
 		}
 
 	}
