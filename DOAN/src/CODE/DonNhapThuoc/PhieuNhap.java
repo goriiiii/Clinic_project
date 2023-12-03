@@ -12,7 +12,7 @@ import Thuoc.Nhap;
 public class PhieuNhap {
 
     private String maPhieuNhap;
-    private String manv;
+
     private NhaSanXuat Nhasx = new NhaSanXuat();
     private ArrayList<ChiTietPhieuNhap> ctpn = new ArrayList<ChiTietPhieuNhap>();
     private String ngayNhap;
@@ -21,22 +21,14 @@ public class PhieuNhap {
     public PhieuNhap() {
     }
 
-    public PhieuNhap(String maPhieuNhap, String maTK, ArrayList<ChiTietPhieuNhap> ctpn, NhaSanXuat Nhasx,
+    public PhieuNhap(String maPhieuNhap, ArrayList<ChiTietPhieuNhap> ctpn, NhaSanXuat Nhasx,
             String ngayNhap, double tongTien) {
         this.maPhieuNhap = maPhieuNhap;
-        this.manv = maTK;
+
         this.ctpn = ctpn;
         this.Nhasx = Nhasx;
         this.ngayNhap = ngayNhap;
         this.tongTien = tongTien;
-    }
-
-    public String getManv() {
-        return manv;
-    }
-
-    public void setManv(String manv) {
-        this.manv = manv;
     }
 
     public void nhapMaPhieuNhap(String maPhieuNhap) {
@@ -128,7 +120,7 @@ public class PhieuNhap {
     }
 
     public String toString() {
-        String text = this.maPhieuNhap; // + "#" + this.thuKho.xuatMaNV() + "#";
+        String text = this.maPhieuNhap + "#";
         for (var ctpn1 : ctpn) {
             text += ctpn1.toString();
         }

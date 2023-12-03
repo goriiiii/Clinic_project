@@ -4,6 +4,9 @@ package CODE;
 import java.util.Scanner;
 import QuanLy.QuanLyPhieuNhap;
 
+import QuanLy.QuanLySP;
+import Thuoc.Run;
+
 public class Quyenhan {
      KiemTra kt = new KiemTra();
      DSBENHNHAN dsbn = new DSBENHNHAN();
@@ -11,13 +14,18 @@ public class Quyenhan {
      DSKHOA dskhoa = new DSKHOA();
      DSBAN dsban = new DSBAN();
      DSPHIEUKHAM dspk = new DSPHIEUKHAM();
+     QuanLySP qlsp = new QuanLySP();
+     QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
+     HangCho hc = new HangCho();
+     Run r = new Run();
 
      public void menu1() {
-          System.out.println(
-                    "1. Quan ly benh nhan     2.Quan ly nhan su      3.Quan ly khoa     4.Quan ly ban    5.Quan ly phieu kham  6. Quan ly thuoc   7.Dang xuat");
-          String choice = kt.KiemTraNhapSo();
+
           boolean menu = true;
           while (menu == true) {
+               System.out.println(
+                         "1. Quan ly benh nhan     2.Quan ly nhan su      3.Quan ly khoa     4.Quan ly ban    5.Quan ly phieu kham  6. Quan ly thuoc   7.Dang xuat");
+               String choice = kt.KiemTraNhapSo();
                switch (choice) {
                     case "1":
                          dsbn.main(dsbn);
@@ -61,11 +69,12 @@ public class Quyenhan {
      }
 
      public void quyen2() {
-          System.out.println(
-                    "1. Quan ly benh nhan      2. Quan ly phieu kham         3.Dang xuat");
-          String choice = kt.KiemTraNhapSo();
+
           boolean menu = true;
           while (menu == true) {
+               System.out.println(
+                         "1. Quan ly benh nhan      2. Quan ly phieu kham      3.Quan ly hang cho    3.Dang xuat");
+               String choice = kt.KiemTraNhapSo();
                switch (choice) {
                     case "1":
                          dsbn.main(dsbn);
@@ -74,6 +83,9 @@ public class Quyenhan {
                          dspk.main();
                          break;
                     case "3":
+                         hc.main(dsbn);
+                         break;
+                    case "4":
                          System.out.println("Ban chac chan muon dang xuat? y|n ");
                          String lc = kt.KiemTraNhapSo();
                          lc = lc.toLowerCase();
@@ -95,6 +107,15 @@ public class Quyenhan {
                }
           }
 
+     }
+
+     public void quyen3() {
+          Run.thuKho();
+     }
+
+     public static void main(String argv[]) {
+          Quyenhan qh = new Quyenhan();
+          qh.quyen2();
      }
 
 }

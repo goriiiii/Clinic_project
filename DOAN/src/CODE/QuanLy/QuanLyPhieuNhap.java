@@ -84,7 +84,7 @@ public class QuanLyPhieuNhap implements QuanLy {
                     dsctpn.add(ctpn1);
                 }
                 NhaSanXuat nhaCC = new NhaSanXuat(thuocTinhPN[3], thuocTinhPN[4]);
-                PhieuNhap pn = new PhieuNhap(thuocTinhPN[0], thuocTinhPN[1], dsctpn, nhaCC, thuocTinhPN[5],
+                PhieuNhap pn = new PhieuNhap(thuocTinhPN[0], dsctpn, nhaCC, thuocTinhPN[5],
                         Double.parseDouble(thuocTinhPN[6]));
                 dspn.add(pn);
             }
@@ -197,7 +197,7 @@ public class QuanLyPhieuNhap implements QuanLy {
                 pn.xuatMaPhieuNhap());
         System.out.println(
                 "+------------------------------------------------------------------------------------------------------------------+");
-        System.out.printf("| Mã nhân viên: %-10s |\n", pn.getManv());
+
         System.out.printf("| Ngày nhập: %-10s |\n", pn.xuatNgayNhap());
         System.out.println(
                 "+---------------+------------------------------+--------------------+--------------------+-------------------------+");

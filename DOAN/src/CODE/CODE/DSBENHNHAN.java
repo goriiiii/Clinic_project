@@ -287,7 +287,7 @@ public class DSBENHNHAN {
 
     }
 
-    public void docFile(DSBAN ds) {
+    public void docFile(DSBENHNHAN ds) {
         System.out.println("Nhập đường dẫn của file: ");
         String file = scanner.nextLine();
         StringBuilder sb = new StringBuilder();
@@ -376,32 +376,42 @@ public class DSBENHNHAN {
         }
     }
 
-  public void vietFileauto(DSBENHNHAN ds, String file) {
- benhnhanarr.add(new BENHNHAN("001", "Bùi Thị Ngọc Hoa", "12/01/1984", " 431 đường Liên Tỉnh, p5 - q8 - TP HCM", "Nữ", "0947XXX986"));
- benhnhanarr.add(new BENHNHAN("002", "Trần Thanh Phong", "03/09/1994", " 22/98 Trần Bình Trọng, p1 - q5 - TP HCM", "Nam", "0816XXX200"));
- benhnhanarr.add(new BENHNHAN("003", "Lê Thị Xuân", "24/12/1988", "178 An Dương Vương, p16 - q8 - TP HCM", "Nữ", "0777XXX540"));
- benhnhanarr.add(new BENHNHAN("004", "Phan Tuấn Anh", "16/4/1993", "2/3B Chánh Hưng, p4 - q8 - TP HCM", "Nam", "0945XXX606"));
- benhnhanarr.add(new BENHNHAN("005", "Võ Phước Triều", "15/07/1990", "17S Đường Bình Phú, p10 - q6 - TP HCM", "Nam", "0814XXX555"));
- benhnhanarr.add(new BENHNHAN("006", "Trương Hồ Thảo Nhi", "11/03/1999", "Số 55 HT06, phường Hiệp Thanh - q12 - TP HCM", "Nữ", "0776XXX101"));
- benhnhanarr.add(new BENHNHAN("007", "Lê Thị Hồng Gấm", "14/08/1980", "164/3/14 Lê Đính Thám, phường Tân Quý - Quận Tân Phú - TP HCM", "Nữ", "0943XXX444"));
- benhnhanarr.add(new BENHNHAN("008", "Trương Gia Phú", "30/11/1898", "31 DDienj Biên Phủ, p15 - quận Bình Thạnh - TP HCM", "Nam", "0313XXX666"));
- benhnhanarr.add(new BENHNHAN("009", "Hồ Trần Lan Anh", "03/12/1988", " 09 Đồng Nai, p15 - q10 - TP HCM", "Nữ", "0770XXX356"));
- benhnhanarr.add(new BENHNHAN("010", "Trịnh văn Thanh", "11/03/1999", "25 Hồ Ngọc Lãm , p16 - q8 - TP HCM", "Nam", "0946XXX622"));
-    try (FileWriter fileWriter = new FileWriter(file, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void vietFileauto(DSBENHNHAN ds, String file) {
+        benhnhanarr.add(new BenhNhan("001", "Bùi Thị Ngọc Hoa", "12/01/1984", " 431 đường Liên Tỉnh, p5 - q8 - TP HCM",
+                "Nữ", "0947XXX986"));
+        benhnhanarr.add(new BenhNhan("002", "Trần Thanh Phong", "03/09/1994",
+                " 22/98 Trần Bình Trọng, p1 - q5 - TP HCM", "Nam", "0816XXX200"));
+        benhnhanarr.add(new BenhNhan("003", "Lê Thị Xuân", "24/12/1988", "178 An Dương Vương, p16 - q8 - TP HCM", "Nữ",
+                "0777XXX540"));
+        benhnhanarr.add(new BenhNhan("004", "Phan Tuấn Anh", "16/4/1993", "2/3B Chánh Hưng, p4 - q8 - TP HCM", "Nam",
+                "0945XXX606"));
+        benhnhanarr.add(new BenhNhan("005", "Võ Phước Triều", "15/07/1990", "17S Đường Bình Phú, p10 - q6 - TP HCM",
+                "Nam", "0814XXX555"));
+        benhnhanarr.add(new BenhNhan("006", "Trương Hồ Thảo Nhi", "11/03/1999",
+                "Số 55 HT06, phường Hiệp Thanh - q12 - TP HCM", "Nữ", "0776XXX101"));
+        benhnhanarr.add(new BenhNhan("007", "Lê Thị Hồng Gấm", "14/08/1980",
+                "164/3/14 Lê Đính Thám, phường Tân Quý - Quận Tân Phú - TP HCM", "Nữ", "0943XXX444"));
+        benhnhanarr.add(new BenhNhan("008", "Trương Gia Phú", "30/11/1898",
+                "31 DDienj Biên Phủ, p15 - quận Bình Thạnh - TP HCM", "Nam", "0313XXX666"));
+        benhnhanarr.add(new BenhNhan("009", "Hồ Trần Lan Anh", "03/12/1988", " 09 Đồng Nai, p15 - q10 - TP HCM", "Nữ",
+                "0770XXX356"));
+        benhnhanarr.add(new BenhNhan("010", "Trịnh văn Thanh", "11/03/1999", "25 Hồ Ngọc Lãm , p16 - q8 - TP HCM",
+                "Nam", "0946XXX622"));
+        try (FileWriter fileWriter = new FileWriter(file, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-        for (BenhNhan bn : benhnhanarr) {
-            if (bn != null) {
-                bufferedWriter.write(bn.getMabenhnhan() + ",  " + bn.getName() + ",  " + bn.getBirthday() + ",  "
-                        + bn.getPhonenumber() + ",  " + bn.getAddress() + ",  " + bn.getGender());
+            for (BenhNhan bn : benhnhanarr) {
+                if (bn != null) {
+                    bufferedWriter.write(bn.getMabenhnhan() + ",  " + bn.getName() + ",  " + bn.getBirthday() + ",  "
+                            + bn.getPhonenumber() + ",  " + bn.getAddress() + ",  " + bn.getGender());
+                }
             }
-        }
-        System.out.println("Array of BenhNhan has been written to file.");
+            System.out.println("Array of BenhNhan has been written to file.");
 
-    } catch (IOException e) {
-        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     public void main(DSBENHNHAN ds) {
 
@@ -443,7 +453,7 @@ public class DSBENHNHAN {
                     ds.suaBenhNhan();
                     break;
                 case "8":
-                    // ds.docFile(ds);
+                    ds.docFile(ds);
                     break;
                 case "9":
                     ds.vietFile();

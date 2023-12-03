@@ -1,4 +1,4 @@
-package CODE;
+package Thuoc;
 
 import java.util.Scanner;
 
@@ -39,13 +39,13 @@ public class Run {
     }
 
     public static void thuKho() {
-
+        // System.out.println("[Thông tin nhân viên]> Nhân viên: " +
+        // nhanVien.xuatHoTen() + " | Mã chức vụ: " + nhanVien.xuatMaChucVu());
         boolean kt = false;
         while (kt == false) {
             System.out.println("\n+---------------[NGHIỆP VỤ QUẢN LÝ KHO]------------------+");
             System.out.println("| 1. Quản lý sản phẩm                                    |");
             System.out.println("| 2. Nhập kho                                            |");
-            System.out.println("| 3. Xuất kho                                            |");
             System.out.println("| 4. Thoát                                               |");
             System.out.println("+--------------------------------------------------------+\n");
             System.out.print("Nhập mục: ");
