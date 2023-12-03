@@ -2,9 +2,6 @@
 package CODE;
 
 import java.util.Scanner;
-import QuanLy.QuanLyPhieuNhap;
-
-import QuanLy.QuanLySP;
 import Thuoc.Run;
 
 public class Quyenhan {
@@ -14,12 +11,11 @@ public class Quyenhan {
      DSKHOA dskhoa = new DSKHOA();
      DSBAN dsban = new DSBAN();
      DSPHIEUKHAM dspk = new DSPHIEUKHAM();
-     QuanLySP qlsp = new QuanLySP();
-     QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
-     HangCho hc = new HangCho();
      Run r = new Run();
 
-     public void menu1() {
+     HangCho hc = new HangCho();
+
+     public void quyen1() {
 
           boolean menu = true;
           while (menu == true) {
@@ -115,7 +111,10 @@ public class Quyenhan {
 
      public static void main(String argv[]) {
           Quyenhan qh = new Quyenhan();
-          qh.quyen2();
+
+          // qh.menu1();
+          // qh.quyen2();
+          qh.quyen3();
      }
 
 }
