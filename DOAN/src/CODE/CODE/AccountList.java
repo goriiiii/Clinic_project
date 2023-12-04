@@ -1,339 +1,502 @@
 package CODE;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+
+import java.io.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AccountList {
-    private ArrayList<Account> listAcc;
 
+    static Scanner scanner = new Scanner(System.in);
     private int slg;
     KiemTra kt = new KiemTra();
-    Scanner sc = new Scanner(System.in);
+
+    private ArrayList<Account> listarr;
+
+    public AccountList(int n, ArrayList<Account> listarr) {
+        this.setSlg(n);
+        this.listarr = listarr;
+    }
 
     public AccountList() {
-        this.listAcc = new ArrayList<>();
+        this.setSlg(0);
+        listarr = new ArrayList<Account>();
+
     }
 
-    public AccountList(ArrayList<Account> listAcc) {
-        this.listAcc = listAcc;
+    public int getSlg() {
+        return slg;
     }
 
-    public Account timkiemacctheoID() {
-        Account acc = null;
-        System.out.println("Nhap vao ID nhan vien :");
-        String id = sc.nextLine();
-        for (int i = 0; i < listAcc.size(); i++)
-            if (listAcc.get(i).getIDAcc().equalsIgnoreCase(id)) {
-                acc = listAcc.get(i);
-                break;
+    public void setSlg(int slg) {
+        this.slg = slg;
+    }
+
+    public ArrayList<Account> getAccountarr() {
+        return listarr;
+    }
+
+    public void setKhoaarr(ArrayList<Account> listarr) {
+        this.listarr = listarr;
+
+    }
+
+    public void taoAccountmacdinh() {
+        Account account = new Account("1", "admin", "12345", "admin");
+        this.listarr.add(account);
+    }
+
+    public void nhapDSAccount() {
+
+        System.out.println("Nhập vào số lượng tai khoan:");
+        slg = Integer.parseInt(kt.KiemTraNhapSo());
+
+        for (int i = 0; i < slg; i++) {
+            Account a = new Account();
+
+            boolean isDuplicate = true;
+            while (isDuplicate) {
+                a.inputAccount();
+                isDuplicate = false;
+
+                for (Account acc : this.listarr) {
+                    if ((a.getIDAcc().equals(acc.getIDAcc())) || a.getUsername().equals(acc.getUsername())) {
+
+                        System.out.println("Không cho phép ID va username trùng lặp!");
+                        isDuplicate = true;
+                        break;
+
+                    }
+                }
             }
+            listarr.add(a);
+
+        }
+    }
+
+    public void xuatDSAccount() {
+        System.out.println("Danh sách các account: ");
+
+        System.out.printf("%-12s%-12s%-12s%-12s\n", "ID", "Username", "Password", "Quyen han");
+        for (Account a : listarr) {
+            System.out.printf("%-12s%-12s%-12s%-12s\n", a.getIDAcc(), a.getUsername(), a.getPassword(),
+                    a.getQuyenhan());
+        }
+    }
+
+    public void themAcc() {
+
+        System.out.println("Them tai khoan moi");
+        nhapDSAccount();
+
+    }
+
+    public Account timkiemAcctheoid() {
+        Account acc = null;
+        System.out.println("Nhập vào ID tai khoan cần tìm:");
+        String id = kt.KiemTraNhapMaKhoa();
+        for (Account a : listarr)
+            if (a.getIDAcc().equalsIgnoreCase(id)) {
+                acc = a;
+                System.out.println(a.toString());
+                return a;
+
+            }
+        if (!this.findMatchingStrings(listarr, id).isEmpty()) {
+
+            System.out.println("Có phải bạn muốn tìm: ");
+            for (String str : this.findMatchingStrings(listarr, id)) {
+                System.out.println(str);
+            }
+
+        } else {
+            System.out.println("Không tìm thấy khoa!");
+        }
         return acc;
     }
 
-    public void nhapDSAcc() {
-        boolean cont = true;
-        while (cont == true) {
-
-            System.out.println("Nhập vào số lượng tài khoản:");
-            slg = Integer.parseInt(kt.KiemTraNhapSo());
-
-            for (int i = 0; i < slg; i++) {
-                Account acc = new Account();
-                acc.inputAccount();
-
-                boolean isDuplicate = true;
-                for (Account acc1 : listAcc) {
-                    while (isDuplicate == true) {
-                        if (acc.getIDAcc().equals(acc1.getIDAcc())) {
-                            System.out.println("Không cho phép ID trùng lặp!");
-                            isDuplicate = true;
-                            acc.inputAccount();
-                        } else {
-                            isDuplicate = false;
-                        }
-                    }
-                }
-                this.listAcc.add(acc);
+    public Account timkiemAccountByUsername() {
+        Account acc = null;
+        System.out.println("Nhập vào username tai khoan cần tìm:");
+        String id = kt.KiemTraNhapMaKhoa();
+        for (Account a : listarr)
+            if (a.getUsername().equalsIgnoreCase(id)) {
+                acc = a;
+                System.out.println(a.toString());
+                return a;
 
             }
-            cont = kt.TiepTuc(cont);
+        if (!this.findMatchingStrings2(listarr, id).isEmpty()) {
+
+            System.out.println("Có phải bạn muốn tìm: ");
+            for (String str : this.findMatchingStrings(listarr, id)) {
+                System.out.println(str);
+            }
+
+        } else {
+            System.out.println("Không tìm thấy khoa!");
+        }
+        return acc;
+    }
+
+    public void xoaAcc() {
+        System.out.println("Nhap ID tai khoan can xoa");
+        Account a = timkiemAcctheoid();
+        if (a == null) {
+            System.out.println("Không tìm thấy để xóa!");
+            return;
+        } else {
+            a.toString();
+            System.out.println("Xac nhan xoa? y|n");
+            String choice = scanner.nextLine();
+            choice.toLowerCase();
+            boolean menu = true;
+            while (menu == true) {
+                switch (choice) {
+                    case "y":
+                        listarr.remove(a);
+                        System.out.println("Da xoa");
+                        menu = false;
+                        break;
+                    case "n":
+                        menu = false;
+                        break;
+                    default:
+                        System.out.println("Lua chon khong hop le");
+                        menu = true;
+                        break;
+                }
+            }
         }
 
     }
 
-    // public void docfile()
-    // {
-    // System.out.println("Nhập vào duong dẫn của file:");
-    // String file = sc.nextLine();
-    // StringBuilder sb = new StringBuilder();
-    // for (int i=0; i< file.length(); i++)
-    // {
-    // char currentChar = file.charAt(i);
-    // if (currentChar!= '\"'){
-    // sb.append(currentChar);
-    // }
-    // if (currentChar!= '\\'){
-    // sb.append("\\");
-    // }
-    // }
-    // System.out.println(sb);
-    // file=sb.toString();
-    // try {
-    // File f = new File (file);
-    // if(f.exists()){
-    // Scanner read = new Scanner (f);
-    // if(!read.hasNext()){
-    // System.out.println("File rỗng!Đang thêm nội dung...");
-    // vietfileauto(listAcc,file);
-    // return;
-    // }
-    // while(read.hasNextLine()){
-    // String line = read.nextLine();
-    // String[] properties;
-    // properties = line.split(",");
-    // if (properties.length >= 4){
-    // String[] pro= new String[4];
-    // for (int i=0; i<4; i++)
-    // {
-    // pro[i] = properties[i].trim();
-    // }
-    // Account acc = new Account(pro[0],pro[1],pro[2],pro[3]);
-    // this.listAcc.add(acc);
-    // }
-    // else
-    // {
-    // System.out.println("Invalid format in the line: " + line );
-    // }
-    // }
-    // }
-    // else {
-    // System.out.println("File không tồn tại");
-    // }
-    // }
-    // catch (Exception e){
-    // e.printStackTrace();
-    // }
-    // }
-    ////
-    // public void ghifile_object()
-    // {
-    // System.out.println("C:\\Users\\jofob\\Desktop\\HKI(23-24)\\OOP\\Document\\output.txt");
-    // String file = sc.nextLine();/
-    // StringBuilder sb = new StringBuilder();
-    // for (int i=0; i< file.length(); i++)
-    // {
-    // char currentChar = file.charAt(i);
-    // if (currentChar!= '\"'){
-    // sb.append(currentChar);
-    // }
-    // if (currentChar!= '\\'){
-    // sb.append("\\");
-    // }
-    // }
-    // System.out.println(sb);
-    // file=sb.toString();
-    // try (FileWriter filewriter = new FileWriter(file,true);
-    // BufferedWriter bufferedwrite = new BufferedWriter(filewriter)){
-    // for ( Account acc : listAcc){
-    // if (acc!= null){
-    // bufferedwrite.write(acc.getIDAcc() +
-    // " "+ acc.getUsername()+ "\n");
-    // }
-    // }
-    // System.out.println("Danh sách dã được viết vào file thành công!");
-    // } catch (IOException e){
-    // e.printStackTrace();
-    // }
-    // }
-    // //----------------- end WRITE_FILE-----------------
-    //
-    //
-    // //----------------- start RESERVE LIST -----------------
-    // public void vietfileauto (ArrayList<Account> listAcc, String file)
-    // {
-    // Account acc1 = new Account ();
-    // listAcc.add(acc1);
-    // Account acc2 = new Account ();
-    // listAcc.add(acc2);
-    // Account acc3 = new Account ();
-    // listAcc.add(acc3);
-    // Account acc4 = new Account ();
-    // listAcc.add(acc4);
-    // Account acc5 = new Account ();
-    // listAcc.add(acc5);
-    // Account acc6 = new Account ();
-    // listAcc.add(acc6);
-    // Account acc7 = new Account ();
-    // listAcc.add(acc7);
-    // Account acc8 = new Account ();
-    // listAcc.add(acc8);
-    // Account acc9 = new Account ();
-    // listAcc.add(acc9);
-    // Account acc10 = new Account ();
-    // listAcc.add(acc10);
-    // try (FileWriter filewriter = new FileWriter(file,true);
-    // BufferedWriter bufferedwrite = new BufferedWriter(filewriter)){
-    // for ( Account acc : listAcc){
-    // if (acc!= null){
-    // bufferedwrite.write(acc.getIDAcc() +
-    // " "+ acc.getUsername()+ "\n");
-    // }
-    // }
-    // System.out.println("Danh sách dã được viết vào file thành công!");
-    // } catch (IOException e){
-    // e.printStackTrace();
-    // }
-    // }
-    // //----------------- end RESERVE LIST -----------------
-    //
-    //
-    //
-    // //----------------- start CREATE/ADD_ACCOUNT (ADMIN) -----------------
-    // public void Add (){
-    // Account acc = null;
-    // acc.inputacc(acc);
-    // this.listAcc.add(acc);
-    // }
-    // //----------------- end CREATE/ADD_ACCOUNT (ADMIN) -----------------
-    //
-    //
-    //
-    // //----------------- start SHOW_ACCOUNTLIST (ADMIN) -----------------
-    // public void print (){
-    // for (Account acc : listAcc)
-    // {
-    // System.out.println(acc.toString());
-    // }
-    // }
-    //
-    //
-    // public boolean check_acc ( Account a){
-    // for (Account acc : listAcc)
-    // {
-    // if ( a == acc)
-    // return true;
-    // }
-    // return false;
-    // }
-    // //----------------- end CHECK_EXISTION-OF-ACCOUNT-----------------
-    //
-    //
-    //
-    //
-    // //----------------- start DELETE_ACCOUNT (ADMIN) -----------------
-    // public boolean delete (Account acc){
-    // return this.listAcc.remove(acc);
-    // }
-    // //----------------- end DELETE_ACCOUNT (ADMIN) -----------------
-    //
-    //
-    //
-    //
-    // //----------------- start CHANGE_PASSWORD (staff + admin) -----------------
-    // public void Thaydoipassword(Account acc){
-    // String pass1, pass2;
-    // do{
-    // System.out.println("Nhap vao password moi:");
-    // pass1 = sc.nextLine();
-    // System.out.println("Nhap vao password moi:");
-    // pass2 = sc.nextLine();}
-    // while (pass1 == pass2);
-    // acc.setPassword(pass2);
-    // System.out.println("Bạn đã đổi password thành công!");
-    // }
-    // //----------------- end CHANGE_PASSWORD (staff + admin) -----------------
-    //
-    //
-    //
-    //
-    // //----------------- start CHANGE_USERNAME (staff + admin) -----------------
-    // public void Thaydoiusername (Account acc){
-    // System.out.println("Nhap vao username moi:");
-    // String name = sc.nextLine();
-    // acc.setUsername(name);
-    // System.out.println("Bạn đã đổi username thành công!");
-    // }
-    // //----------------- end CHANGE_USERNAME (staff + admin) -----------------
-    //
-    //
-    //
-    // //----------------- start LOGIN (staff + admin) -----------------
-    // public void login ( Account a){
-    // do{
-    // System.out.println("Mời nhập thông tin tài khoản!");
-    // a.inputacc();}
-    // while (check_acc( a)== true);
-    // System.out.println("Chúc Mừng bạn đã đăng nhập thành công!");
-    // }
-    //
-    // public void logout (){
-    // System.exit(0);
-    // }
-    //
-    //
-    //// ----------------------------MENU--------------------------------
-    // public void question (){
-    // int n;
-    // do{
-    // System.out.println("Bạn có muốn đăng nhập vào tài khoản không ?");
-    // System.out.print("""
-    // 1. Có
-    // 2. Không
-    // """);
-    // n = sc.nextInt();
-    // }
-    // while ( n==1 );
-    //
-    // }
-    //
-    // public void Change_in4 (AccountList listacc, Account acc){
-    // int n;
-    // do{
-    // System.out.println("Bạn có muốn thay đổi username không ?");
-    // System.out.print("""
-    // 1. Có
-    // 2. Không
-    // """);
-    // n = sc.nextInt();} while (n==1 || n==2);
-    // if ( n==1 )
-    // {
-    // listacc.Thaydoiusername(acc);
-    // int x;
-    // do{
-    // System.out.println("Bạn có muốn thay đổi username không ?");
-    // System.out.print("""
-    // 1. Có
-    // 2. Không
-    // """);
-    // x = sc.nextInt();}
-    // while (x==1 || x==2);
-    // if ( x==1 )
-    // {
-    // listacc.Thaydoipassword(acc);
-    // }
-    // else System.exit(0);
-    // }
-    // else System.exit(0);
-    // }
-    //
-    //
-    // public boolean kt_quyenhan (Account acc){
-    // if (acc.getQuyenhan()== "Quản trị viên")
-    // return true;
-    // else return false;
-    // }
-    //
-    // public void act_admin (){
-    // System.out.println("Mời nhập vào thao tác cần thực hiện!");
-    //
-    // }
-    public static void main(String argv[]) {
-        AccountList acclist = new AccountList();
-        acclist.nhapDSAcc();
+    public ArrayList<String> findMatchingStrings(ArrayList<Account> listarr, String pattern) {
+        ArrayList<String> matchingStrings = new ArrayList<String>();
+
+        for (Account a : listarr) {
+            if (a.getIDAcc().toLowerCase().contains(pattern.toLowerCase())) {
+                matchingStrings.add(a.toString());
+            }
+
+        }
+
+        return matchingStrings;
     }
 
+    public ArrayList<String> findMatchingStrings2(ArrayList<Account> listarr, String pattern) {
+        ArrayList<String> matchingStrings = new ArrayList<String>();
+
+        for (Account a : listarr) {
+            if (a.getUsername().toLowerCase().contains(pattern.toLowerCase())) {
+                matchingStrings.add(a.toString());
+            }
+
+        }
+
+        return matchingStrings;
+    }
+
+    public void suaAcc() {
+
+        System.out.println("Nhap ID tai can sua");
+        Account a = timkiemAcctheoid();
+        if (a == null) {
+            System.out.println("Khong tim thay");
+            return;
+        } else {
+
+            boolean menu1 = true;
+            while (menu1 == true) {
+                System.out.println(
+                        "1.Sửa  ID     2.Sửa Username     3.Sua quyen han     X.Thoát");
+                String choice = scanner.nextLine();
+
+                choice = choice.toLowerCase();
+                switch (choice) {
+                    case "1":
+                        System.out.println("Nhập ID mới: ");
+                        boolean isDuplicate = true;
+
+                        while (isDuplicate) {
+                            String newid = kt.KiemTraNhapMaKhoa();
+
+                            String currentId = a.getIDAcc();
+
+                            if (newid.equalsIgnoreCase(currentId)) {
+                                System.out.println("ID mới giống với ID hiện tại. Vui lòng nhập ID khác.");
+                                continue;
+                            }
+
+                            isDuplicate = false;
+                            for (Account acc : listarr) {
+                                if (newid.equalsIgnoreCase(acc.getIDAcc())) {
+                                    System.out.println("Không cho phép ID trùng lặp!");
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+
+                            if (isDuplicate) {
+                                System.out.println("Vui lòng nhập ID mới.");
+                            } else {
+                                a.setIDAcc(newid);
+                                System.out.println("Da luu");
+                                break;
+                            }
+                        }
+                        System.out.println(a.toString());
+                        menu1 = false;
+                        break;
+                    case "2":
+                        System.out.println("Nhập Username mới: ");
+                        boolean isDuplicate2 = true;
+
+                        while (isDuplicate2) {
+                            String newid = kt.KiemTraNhapMaKhoa();
+
+                            String currentId = a.getUsername();
+
+                            if (newid.equalsIgnoreCase(currentId)) {
+                                System.out.println("ID mới giống với ID hiện tại. Vui lòng nhập ID khác.");
+                                continue;
+                            }
+
+                            isDuplicate = false;
+                            for (Account acc : listarr) {
+                                if (newid.equalsIgnoreCase(acc.getUsername())) {
+                                    System.out.println("Không cho phép username trùng lặp!");
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+
+                            if (isDuplicate) {
+                                System.out.println("Vui lòng nhập username mới.");
+                            } else {
+                                a.setUsername(newid);
+                                System.out.println("Da luu");
+                                break;
+                            }
+                        }
+                        System.out.println(a.toString());
+                        menu1 = false;
+                        break;
+                    case "3":
+                        int x = 0;
+                        do {
+                            System.out.println("\nChọn Quyền hạn:");
+                            System.out.println("1. Quản trị viên        2. Quản lí của bác sĩ         3. Quản lí dược");
+                            x = Integer.parseInt(kt.KiemTraNhapSo());
+                            if (x == 1) {
+                                a.setQuyenhan("admin");
+                            } else if (x == 2) {
+                                a.setQuyenhan("bacsi");
+                            } else if (x == 3) {
+                                a.setQuyenhan("duoc");
+                            } else {
+                                System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                            }
+                        } while (x != 1 && x != 2 && x != 3);
+
+                }
+            }
+        }
+    }
+
+    public void docFile(AccountList ds) {
+        System.out.println("Nhap duong dan cua file: ");
+        String file = scanner.nextLine();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < file.length(); i++) {
+            char currentChar = file.charAt(i);
+            if (currentChar != '\"') {
+                sb.append(currentChar);
+            }
+            if (currentChar == '\\') {
+                sb.append("\\");
+            }
+        }
+        System.out.println(sb);
+        file = sb.toString();
+        try {
+            File f = new File(file);
+
+            if (f.exists()) {
+                Scanner read = new Scanner(f);
+                if (!read.hasNext()) {
+                    System.out.println("File is empty. Generating content...");
+                    vietFileauto(ds, file);
+
+                    return;
+                }
+                while (read.hasNextLine()) {
+                    String line = read.nextLine();
+                    String[] properties = line.split(",");
+
+                    if (properties.length >= 3) {
+                        String property1 = properties[0].trim();
+                        String property2 = properties[1].trim();
+                        String property3 = properties[2].trim();
+                        String property4 = properties[3].trim();
+
+                        Account dvobj = new Account(property1, property2, property3, property4);
+
+                        listarr.add(dvobj);
+
+                    } else {
+                        System.out.println("Invalid format in the line: " + line);
+                        return;
+                    }
+                }
+
+            } else {
+                System.out.println("File khong ton tai");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        Set<String> uniqueIds = new HashSet<>();
+        ArrayList<Account> duplicatesToRemove = new ArrayList<>();
+
+        for (Account a : listarr) {
+            String currentId = a.getIDAcc();
+            String currentUsername = a.getUsername();
+            if (uniqueIds.contains(currentId) || uniqueIds.contains(currentUsername)) {
+                System.out.println("ID trung lap: " + a.getIDAcc() + "hoac username trung lap: " + a.getUsername());
+                duplicatesToRemove.add(a);
+            } else {
+                uniqueIds.add(a.getIDAcc());
+
+            }
+        }
+
+        listarr.removeAll(duplicatesToRemove);
+        System.out.println("Go bo nhung ID/username trung lap thanh cong");
+
+    }
+
+    public void vietFile() {
+
+        System.out.println("Nhap duong dan cua file de viet: ");
+        String file = scanner.nextLine();// "C:\Users\ADMIN\Documents\input.txt"
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < file.length(); i++) {
+            char currentChar = file.charAt(i);
+            if (currentChar != '\"') {
+                sb.append(currentChar);
+            }
+            if (currentChar == '\\') {
+                sb.append("\\");
+            }
+        }
+        System.out.println(sb);
+        file = sb.toString();
+        try (FileWriter fileWriter = new FileWriter(file, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+            for (Account acc : listarr) {
+                if (acc != null) {
+                    bufferedWriter.write(acc.getIDAcc() +
+                            " , " + acc.getUsername() + ", " + acc.getPassword() + ",  " + acc.getQuyenhan());
+                }
+            }
+            System.out.println("Array of DICHVU has been written to file.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void vietFileauto(AccountList l, String file) {
+        listarr.add(new Account("2", "admin2", "12345", "admin"));
+        listarr.add(new Account("3", "bacsi1", "12345", "bacsi"));
+        listarr.add(new Account("4", "duoc", "12345", "duoc"));
+
+        try (FileWriter fileWriter = new FileWriter(file, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            for (Account acc : listarr) {
+                if (acc != null) {
+                    bufferedWriter.write(acc.getIDAcc() +
+                            " , " + acc.getUsername() + ", " + acc.getPassword() + ",  " + acc.getQuyenhan());
+                }
+            }
+            System.out.println("Array of Account has been written to file.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void main(AccountList ds) {
+
+        String c;
+        boolean menu = true;
+        while (menu == true) {
+            System.out.println("QUẢN LÍ TAI KHOAN");
+            System.out.println("1. Nhập them tai khoan");
+            System.out.println("2. Xuất thong tin");
+            System.out.println("3. Thêm tai khoan");
+            System.out.println("4. Tìm kiếm theo ID");
+            System.out.println("5. Tìm kiếm theo tên");
+            System.out.println("6. Xóa tai khoa ");
+            System.out.println("7. Sửa tai khoan");
+            System.out.println("8. Nhập thông tin từ file");
+            System.out.println("9. Xuất thông tin ra file");
+            System.out.println("10. Exit");
+            c = scanner.nextLine();
+            switch (c) {
+                case "1":
+                    ds.nhapDSAccount();
+                    break;
+                case "2":
+                    ds.xuatDSAccount();
+
+                    break;
+                case "3":
+                    ds.themAcc();
+                    break;
+                case "4":
+                    ds.timkiemAcctheoid();
+                    break;
+                case "5":
+                    ds.timkiemAccountByUsername();
+                    break;
+                case "6":
+                    ds.xoaAcc();
+                    ;
+                    break;
+                case "7":
+                    ds.suaAcc();
+                    break;
+                case "8":
+                    ds.docFile(ds);
+                    break;
+                case "9":
+                    ds.vietFile();
+                    break;
+                case "10":
+                    menu = false;
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ! Hãy nhập lại");
+                    menu = true;
+                    break;
+            }
+        }
+    }
+
+    public static void main(String argv[]) {
+        AccountList l = new AccountList();
+
+        l.main(l);
+    }
 }

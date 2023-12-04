@@ -481,31 +481,53 @@ public class DSNHANSU {
 
     public void vietFileauto(DSNHANSU ds, String file) {
 
-        //nvarr.add(new NVCHUYENMON("Hồ Trương Thảo Vân", "23/11/1993", "0774XXX411", "225 Lý Thường Kiệt, p14 - q10 - TP HCM", "Nữ", "001", "0568XXX44", "MAT"));
-        //nvarr.add(new NVHANHCHINH("Lê Nhật Nam", "10/04/1990", "0948XXX211", "52/1A Cư xá Lữ Gia, p15 - q11 - TP HCM", "Nam", "002", "0528XXX74","TC"));   
-        //nvarr.add(new NVCHUYENMON("Vũ Duy Thái Hùng", "12/08/1990", "0972XXX008", "322 Nguyễn Tri Phương, p4 - q10 - TP HCM", "Nam", "003", "0482XXX11","NHI"));
-        //nvarr.add(new NVCHUYENMON("Nguyễn Ngọc Trân", "19/07/1996", "0814XXX516", "12 Trịnh Đình Thảo, phường Hòa Thạnh - quận Tân Phú - TP HCM", "Nữ", "004", "0544XXX13", "DL"));
-        //nvarr.add(new NVCHUYENMON("Trần Dương Thảo Uyên", "26/11/1899", "0775XXX987", "20 Thạch Lam, phường Phú Thạnh - quận Tân Phú - TP HCM", "Nam", "005", "0595XXX71","TK"));   
-        //nvarr.add(new NVHANHCHINH("Hà Thị NGọc Như", "22/01/1995", "0948XXX211", "124 Hồng Bàng, p12 - q5 - TP HCM", "Nam", "006", "0462XXX37","KT1"));
-        //nvarr.add(new NVHANHCHINH("Dương Duy Tân", "16/05/1990", "0774XXX411", "82 Cửu Long, p15 - q10 - TP HCM", "Nữ", "007", "0288XXX17", "QLK"));
-        //nvarr.add(new NVCHUYENMON("Đào Phú Nghĩa", "10/04/1990", "0989XXX008", "97 Trường Chinh, p12 - quận Tân Bình - TP HCM", "Nam", "008", "0483XXX14","XN"));   
-        //nvarr.add(new NVHANHCHINH("Vũ Thị Lan Anh", "29/02/1997", "0774XXX721", "155 Sư Vạn Hạnh, p13 - q10 - TP HCM", "Nam", "009", "0573XXX19","HC"));
-        //nvarr.add(new NVHANHCHINH("Trương Tấn An", "14/11/1994", "0818XXX661", "46 Hoàng Việt, p4 - quận Tân Bình - TP HCM", "Nam", "010", "0492XXX56","HC2"));
-        
-        // try (FileWriter fileWriter = new FileWriter(file, true);
-        // BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+        nvarr.add(new NVCHUYENMON("Hồ Trương Thảo Vân", "23/11/1993", "0774000411",
+                "225 Lý Thường Kiệt, p14 - q10 - TP HCM", "Nữ", "001", "0568XXX44", "MAT"));
+        nvarr.add(new NVHANHCHINH("Lê Nhật Nam", "10/04/1990", "0948XXX211", "52/1A Cư xá Lữ Gia, p15 - q11 - TP HCM",
+                "Nam", "002", "0528XXX74", "TC"));
+        nvarr.add(new NVCHUYENMON("Vũ Duy Thái Hùng", "12/08/1990", "0972XXX008",
+                "322 Nguyễn Tri Phương, p4 - q10 - TP HCM", "Nam", "003", "0482XXX11", "NHI"));
+        nvarr.add(new NVCHUYENMON("Nguyễn Ngọc Trân", "19/07/1996", "0814XXX516",
+                "12 Trịnh Đình Thảo, phường Hòa Thạnh - quận Tân Phú - TP HCM", "Nữ", "004", "0544XXX13", "DL"));
+        nvarr.add(new NVCHUYENMON("Trần Dương Thảo Uyên", "26/11/1899", "0775XXX987",
+                "20 Thạch Lam, phường Phú Thạnh - quận Tân Phú - TP HCM", "Nam", "005", "0595XXX71", "TK"));
+        nvarr.add(new NVHANHCHINH("Hà Thị NGọc Như", "22/01/1995", "0948XXX211", "124 Hồng Bàng, p12 - q5 - TP HCM",
+                "Nam", "006", "0462XXX37", "KT1"));
+        nvarr.add(new NVHANHCHINH("Dương Duy Tân", "16/05/1990", "0774XXX411", "82 Cửu Long, p15 - q10 - TP HCM", "Nữ",
+                "007", "0288XXX17", "QLK"));
+        nvarr.add(new NVCHUYENMON("Đào Phú Nghĩa", "10/04/1990", "0989XXX008",
+                "97 Trường Chinh, p12 - quận Tân Bình - TP HCM", "Nam", "008", "0483XXX14", "XN"));
+        nvarr.add(new NVHANHCHINH("Vũ Thị Lan Anh", "29/02/1997", "0774XXX721", "155 Sư Vạn Hạnh, p13 - q10 - TP HCM",
+                "Nam", "009", "0573XXX19", "HC"));
+        nvarr.add(new NVHANHCHINH("Trương Tấn An", "14/11/1994", "0818XXX661",
+                "46 Hoàng Việt, p4 - quận Tân Bình - TP HCM", "Nam", "010", "0492XXX56", "HC2"));
 
-        // for (KHOA khoa : khoaarr) {
-        // if (khoa != null) {
-        // bufferedWriter.write(khoa.getId() +
-        // " , " + khoa.getTen() + "\n");
-        // }
-        // }
+        try (FileWriter fileWriter = new FileWriter(file, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            for (NHANSU ns : nvarr) {
+                if (ns != null) {
+                    if (ns instanceof NVCHUYENMON) {
+                        NVCHUYENMON nvChuyenMon = (NVCHUYENMON) ns;
 
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        //
+                        bufferedWriter.write(ns.getName() + ", " + ns.getBirthday() + ", " + ns.getPhonenumber() + ", "
+                                + ns.getAddress() + ", "
+                                + ns.getGender() + ", " + ns.getEmployeeId() + ", " + ns.getIdentificationCode()
+                                + ", Chuyên môn" + nvChuyenMon.getMA_KHOA());
+                    } else {
+                        NVHANHCHINH nvhanhchinh = (NVHANHCHINH) ns;
+
+                        bufferedWriter.write(ns.getName() + ", " + ns.getBirthday() + ", " + ns.getPhonenumber() + ", "
+                                + ns.getAddress() + ", "
+                                + ns.getGender() + ", " + ns.getEmployeeId() + ", " + ns.getIdentificationCode()
+                                + ", Hành chính" + nvhanhchinh.getMA_BAN());
+                    }
+                }
+            }
+            System.out.println("Array of NHANSU has been written to file.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void main(DSNHANSU ds) {
@@ -565,3 +587,5 @@ public class DSNHANSU {
         }
     }
 }
+
+

@@ -11,6 +11,8 @@ public class Quyenhan {
      DSKHOA dskhoa = new DSKHOA();
      DSBAN dsban = new DSBAN();
      DSPHIEUKHAM dspk = new DSPHIEUKHAM();
+     DSDICHVU dsdv = new DSDICHVU();
+     AccountList list = new AccountList();
      Run r = new Run();
 
      HangCho hc = new HangCho();
@@ -19,8 +21,17 @@ public class Quyenhan {
 
           boolean menu = true;
           while (menu == true) {
-               System.out.println(
-                         "1. Quan ly benh nhan     2.Quan ly nhan su      3.Quan ly khoa     4.Quan ly ban    5.Quan ly phieu kham  6. Quan ly thuoc   7.Dang xuat");
+               System.out.println("\n+-----------------[NGHIỆP VỤ QUẢN LÝ]--------------------+");
+               System.out.println("| 1. Quản lý bệnh nhân                                   |");
+               System.out.println("| 2. Quản lý nhân sự                                     |");
+               System.out.println("| 3. Quản lý khoa                                        |");
+               System.out.println("| 4. Quản lý ban                                         |");
+               System.out.println("| 5. Quản lý phiếu khám                                  |");
+               System.out.println("| 6. Quản lý tai khoan                                     |");
+               System.out.println("| 7. Quản lý dịch vụ                                     |");
+               System.out.println("| 8. Thoát                                               |");
+               System.out.println("+--------------------------------------------------------+\n");
+               System.out.print("Nhập mục: ");
                String choice = kt.KiemTraNhapSo();
                switch (choice) {
                     case "1":
@@ -38,10 +49,14 @@ public class Quyenhan {
                     case "5":
                          dspk.main();
                     case "6":
+                         list.main(list);
                          break;
                     case "7":
-                         System.out.println("Ban chac chan muon dang xuat? y|n ");
-                         String lc = kt.KiemTraNhapSo();
+                         dsdv.main(dsdv);
+                         break;
+                    case "8":
+                         System.out.println("Bạn chắc chắn muốn đăng xuất? y|n ");
+                         String lc = kt.KiemTraNhapChuoi();
                          lc = lc.toLowerCase();
                          if (lc.equals("y")) {
                               menu = false;
@@ -50,13 +65,13 @@ public class Quyenhan {
                               menu = true;
                               break;
                          } else {
-                              System.out.println("Lua chon khong hop le");
+                              System.out.println("Lựa chọn không hợp lệ");
                               menu = true;
                               break;
                          }
 
                     default:
-                         System.out.println("Lua chon khong hop le!");
+                         System.out.println("Lựa chọn không hợp lệ!");
                          menu = true;
                          break;
                }
@@ -68,8 +83,13 @@ public class Quyenhan {
 
           boolean menu = true;
           while (menu == true) {
-               System.out.println(
-                         "1. Quan ly benh nhan      2. Quan ly phieu kham      3.Quan ly hang cho    3.Dang xuat");
+               System.out.println("\n+-----------------[NGHIỆP VỤ QUẢN LÝ]--------------------+");
+               System.out.println("| 1. Quản lý bệnh nhân                                   |");
+               System.out.println("| 2. Quản lý phiếu khám                                  |");
+               System.out.println("| 3. Quản lý hàng chờ                                    |");
+               System.out.println("| 4. Thoát                                               |");
+               System.out.println("+--------------------------------------------------------+\n");
+               System.out.print("Nhập mục: ");
                String choice = kt.KiemTraNhapSo();
                switch (choice) {
                     case "1":
@@ -82,8 +102,8 @@ public class Quyenhan {
                          hc.main(dsbn);
                          break;
                     case "4":
-                         System.out.println("Ban chac chan muon dang xuat? y|n ");
-                         String lc = kt.KiemTraNhapSo();
+                         System.out.println("Bạn chắc chắn muốn đăng xuất? y|n ");
+                         String lc = kt.KiemTraNhapChuoi();
                          lc = lc.toLowerCase();
                          if (lc.equals("y")) {
                               menu = false;
@@ -92,12 +112,12 @@ public class Quyenhan {
                               menu = true;
                               break;
                          } else {
-                              System.out.println("Lua chon khong hop le");
+                              System.out.println("Lựa chọn không hợp lệ");
                               menu = true;
                               break;
                          }
                     default:
-                         System.out.println("Lua chon khong hop le!");
+                         System.out.println("Lựa chọn không hợp lệ!");
                          menu = true;
                          break;
                }
@@ -109,12 +129,12 @@ public class Quyenhan {
           Run.thuKho();
      }
 
-     public static void main(String argv[]) {
-          Quyenhan qh = new Quyenhan();
+     // public static void main(String[] argv) {
+     // Quyenhan qh = new Quyenhan();
 
-          // qh.menu1();
-          // qh.quyen2();
-          qh.quyen3();
-     }
+     // qh.quyen1();
+     // qh.quyen2();
+     // qh.quyen3();
+     // }
 
 }

@@ -234,7 +234,7 @@ public class DSBENHNHAN {
                             }
                         }
                         System.out.println(bn.toString());
-                        menu1 = false; // Exit the while loop
+                        menu1 = false;
                         break;
 
                     case "2":

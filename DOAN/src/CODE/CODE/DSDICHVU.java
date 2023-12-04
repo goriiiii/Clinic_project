@@ -258,17 +258,16 @@ public class DSDICHVU {
 
 			if (f.exists()) {
 				Scanner read = new Scanner(f);
-				if (!read.hasNext()) { // Check if the file is empty
+				if (!read.hasNext()) {
 					System.out.println("File is empty. Generating content...");
-					vietFileauto(ds, file); // Call vietFile to generate content
-
+					vietFileauto(ds, file);
 					return;
 				}
 				while (read.hasNextLine()) {
 					String line = read.nextLine();
 					String[] properties = line.split(",");
 
-					if (properties.length >= 3) { // Ensure you have at least two properties in the line
+					if (properties.length >= 3) {
 						String property1 = properties[0].trim();
 						String property2 = properties[1].trim();
 						String property3 = properties[2].trim();
@@ -313,7 +312,7 @@ public class DSDICHVU {
 	public void vietFile() {
 
 		System.out.println("Nhap duong dan cua file de viet: ");
-		String file = scanner.nextLine();// "C:\Users\ADMIN\Documents\input.txt"
+		String file = scanner.nextLine();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < file.length(); i++) {
 			char currentChar = file.charAt(i);
@@ -329,7 +328,6 @@ public class DSDICHVU {
 		try (FileWriter fileWriter = new FileWriter(file, true);
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-			// Loop through the array and write each product's information to the file
 			for (DICHVU dv : dvarr) {
 				if (dv != null) {
 					bufferedWriter.write(dv.getId() +
