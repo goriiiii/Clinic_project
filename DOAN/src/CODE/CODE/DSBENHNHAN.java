@@ -378,25 +378,25 @@ public class DSBENHNHAN {
 
     public void vietFileauto(DSBENHNHAN ds, String file) {
         benhnhanarr.add(new BenhNhan("001", "Bùi Thị Ngọc Hoa", "12/01/1984", " 431 đường Liên Tỉnh, p5 - q8 - TP HCM",
-                "Nữ", "0947XXX986"));
+                "Nữ", "0947746986"));
         benhnhanarr.add(new BenhNhan("002", "Trần Thanh Phong", "03/09/1994",
-                " 22/98 Trần Bình Trọng, p1 - q5 - TP HCM", "Nam", "0816XXX200"));
+                " 22/98 Trần Bình Trọng, p1 - q5 - TP HCM", "Nam", "0816099200"));
         benhnhanarr.add(new BenhNhan("003", "Lê Thị Xuân", "24/12/1988", "178 An Dương Vương, p16 - q8 - TP HCM", "Nữ",
-                "0777XXX540"));
+                "0777022540"));
         benhnhanarr.add(new BenhNhan("004", "Phan Tuấn Anh", "16/4/1993", "2/3B Chánh Hưng, p4 - q8 - TP HCM", "Nam",
-                "0945XXX606"));
+                "0945822606"));
         benhnhanarr.add(new BenhNhan("005", "Võ Phước Triều", "15/07/1990", "17S Đường Bình Phú, p10 - q6 - TP HCM",
-                "Nam", "0814XXX555"));
+                "Nam", "0814926555"));
         benhnhanarr.add(new BenhNhan("006", "Trương Hồ Thảo Nhi", "11/03/1999",
-                "Số 55 HT06, phường Hiệp Thanh - q12 - TP HCM", "Nữ", "0776XXX101"));
+                "Số 55 HT06, phường Hiệp Thanh - q12 - TP HCM", "Nữ", "0776922101"));
         benhnhanarr.add(new BenhNhan("007", "Lê Thị Hồng Gấm", "14/08/1980",
-                "164/3/14 Lê Đính Thám, phường Tân Quý - Quận Tân Phú - TP HCM", "Nữ", "0943XXX444"));
+                "164/3/14 Lê Đính Thám, phường Tân Quý - Quận Tân Phú - TP HCM", "Nữ", "0943826444"));
         benhnhanarr.add(new BenhNhan("008", "Trương Gia Phú", "30/11/1898",
-                "31 DDienj Biên Phủ, p15 - quận Bình Thạnh - TP HCM", "Nam", "0313XXX666"));
+                "31 DDienj Biên Phủ, p15 - quận Bình Thạnh - TP HCM", "Nam", "0313824666"));
         benhnhanarr.add(new BenhNhan("009", "Hồ Trần Lan Anh", "03/12/1988", " 09 Đồng Nai, p15 - q10 - TP HCM", "Nữ",
-                "0770XXX356"));
+                "0770938356"));
         benhnhanarr.add(new BenhNhan("010", "Trịnh văn Thanh", "11/03/1999", "25 Hồ Ngọc Lãm , p16 - q8 - TP HCM",
-                "Nam", "0946XXX622"));
+                "Nam", "0946928622"));
         try (FileWriter fileWriter = new FileWriter(file, true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
