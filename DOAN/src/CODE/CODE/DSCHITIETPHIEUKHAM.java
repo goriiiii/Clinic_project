@@ -310,7 +310,8 @@ public class DSCHITIETPHIEUKHAM {
             System.out.println("6. Xoa chi tiet thuoc");
             System.out.println("7. Xoa chi tiet dich vu");
             System.out.println("8. Xac nhan nhap cac chi tiet vao phieu");
-            System.out.println("9. Huy nhap va thoat");
+            System.out.println("9. Xuất tổng tiền");
+            System.out.println("10. Huy nhap va thoat");
 
             c = scanner.nextLine();
             switch (c) {
@@ -350,6 +351,9 @@ public class DSCHITIETPHIEUKHAM {
                     break;
 
                 case "9":
+                    System.out.println(this.TotalMoney());
+                    break;
+                case "10":
                     return;
                 default:
                     System.out.println("Lựa chọn không hợp lệ! Hãy nhập lại");
